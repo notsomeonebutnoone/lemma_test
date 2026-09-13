@@ -1,0 +1,22 @@
+{
+  "display_information": {
+    "name": "Sentinel Demo",
+    "description": "Policy-gated incident commander for a disposable checkout project",
+    "background_color": "#10201b"
+  },
+  "features": {
+    "bot_user": { "display_name": "Sentinel", "always_online": false }
+  },
+  "oauth_config": {
+    "scopes": { "bot": ["app_mentions:read", "chat:write"] }
+  },
+  "settings": {
+    "event_subscriptions": {
+      "request_url": "https://REPLACE-WITH-YOUR-TUNNEL.trycloudflare.com/api/slack/events",
+      "bot_events": ["app_mention"]
+    },
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": false,
+    "token_rotation_enabled": false
+  }
+}

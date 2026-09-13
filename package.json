@@ -1,0 +1,49 @@
+{
+  "name": "sentinel-incident-commander",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:web": "next dev --hostname 127.0.0.1",
+    "worker": "node --env-file-if-exists=.env.local --import tsx scripts/worker.ts",
+    "setup": "node scripts/setup.mjs",
+    "preflight": "node --env-file-if-exists=.env.local --import tsx scripts/preflight.ts",
+    "demo:variant": "node scripts/demo-variant.mjs",
+    "demo:local": "node --env-file-if-exists=.env.local scripts/demo-local.mjs",
+    "evaluate": "node --import tsx scripts/evaluate.ts",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts tests/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "@streamdown/cjk": "^1.0.3",
+    "@streamdown/code": "^1.1.1",
+    "@streamdown/math": "^1.0.2",
+    "@streamdown/mermaid": "^1.0.2",
+    "@tailwindcss/postcss": "^4.3.3",
+    "ai": "^7.0.99",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cn": "^0.3.0",
+    "lucide-react": "^0.544.0",
+    "next": "^16.3.5",
+    "radix-ui": "^1.6.7",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "streamdown": "^2.6.0",
+    "tailwind-merge": "^3.7.0",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.13",
+    "zod": "^4.6.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^5.9.2"
+  }
+}

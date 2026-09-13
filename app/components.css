@@ -1,0 +1,14 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@source "../node_modules/streamdown/dist/*.js";
+@theme inline {
+  --color-background: #080b0d; --color-foreground: #edf1f2;
+  --color-primary: #70f0b1; --color-primary-foreground: #080b0d;
+  --color-muted: #151d22; --color-muted-foreground: #9ba8ae;
+  --color-secondary: #182025; --color-secondary-foreground: #edf1f2;
+  --color-accent: #1e2a24; --color-accent-foreground: #edf1f2;
+  --color-border: #29353b; --color-input: #29353b; --color-ring: #70f0b1;
+  --color-destructive: #ff746c; --color-popover: #11171b; --color-popover-foreground: #edf1f2;
+  --radius: .5rem;
+}

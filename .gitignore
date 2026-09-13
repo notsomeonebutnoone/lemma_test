@@ -1,0 +1,17 @@
+node_modules
+.next
+.env
+.env.local
+*.log
+*.tsbuildinfo
+.vercel
+.env.*
+!.env.example
+data/
+artifacts/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+demo-target/.env*
+demo-target/.vercel/
+demo-target/node_modules/
