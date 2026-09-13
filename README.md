@@ -4,6 +4,12 @@ Sentinel investigates a disposable checkout failure across **Slack, Vercel, GitH
 
 **Status: implemented and locally verified.** Sandbox is deliberately labeled, and live actions require two explicit environment switches. The included disposable checkout is the only permitted rollback target.
 
+## Demo video
+
+[![Watch the Sentinel demo on Loom](https://img.shields.io/badge/Watch%20the%20demo-Loom-625DF5?style=for-the-badge&logo=loom&logoColor=white)](https://www.loom.com/share/f6928eab692f45048aef5353bb2e328a)
+
+Click the button to watch Sentinel investigate a checkout failure, apply its deterministic safety gates, roll back the disposable Vercel deployment, verify recovery, and create the external incident records. [Open the video directly on Loom](https://www.loom.com/share/f6928eab692f45048aef5353bb2e328a).
+
 ## Try it locally
 
 Requires Node.js 24 and npm. Run from this repository:
