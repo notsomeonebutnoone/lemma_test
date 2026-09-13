@@ -2,7 +2,7 @@
 
 Sentinel investigates a disposable checkout failure across **Slack, Vercel, GitHub, and Linear**. It gathers evidence, asks an AI agent for a cited diagnosis, applies deterministic rollback rules, and checks the actual checkout after a rollback request.
 
-**Status: implemented and locally verified; live rehearsal not yet run.** Sandbox is deliberately labeled. No real deployment, rollback, model call, message, or issue was created during implementation.
+**Status: implemented and locally verified.** Sandbox is deliberately labeled, and live actions require two explicit environment switches. The included disposable checkout is the only permitted rollback target.
 
 ## Try it locally
 
@@ -39,6 +39,70 @@ Two independent environment switches default to false:
 - `ALLOW_PRODUCTION_ACTIONS`: additionally permits rollback of the configured disposable Vercel project when every gate passes.
 
 Do not connect a customer application. The target is a tiny dry-run checkout with no payments, orders, or database migrations.
+
+## Judge demo path
+
+The shortest way to evaluate the complete product is a safe rollback scenario:
+
+1. Open the healthy disposable checkout and the Sentinel operator console.
+2. Deploy the included `regression` variant. It introduces a code-only failure when checkout receives a null promo code.
+3. Mention the Slack bot with `@Sentinel investigate checkout`.
+4. Watch Sentinel gather production and known-good evidence, compare Git revisions, obtain a cited AI diagnosis, and evaluate the deterministic rollback gates.
+5. When every gate passes, Sentinel rolls Vercel production back to the pinned known-good deployment.
+6. Sentinel probes the public production URL for three consecutive healthy windows before marking the incident resolved.
+7. Open the Slack thread, GitHub issue, and Linear issue to inspect the saved diagnosis, action receipts, recovery evidence, and follow-up work.
+
+The expected evidence in the console is a repeatable production failure, a healthy known-good candidate, a code-only commit difference, one rollback request, three healthy recovery checks, and linked reporting receipts. An accepted Vercel API response by itself never counts as recovery.
+
+For a local, zero-risk review, run the **Safe rollback** sandbox scenario instead. It exercises the same queue, state machine, persistence, policy, verification, and reporting pipeline using fixture adapters without contacting external providers.
+
+## Live rehearsal commands
+
+The full provider setup is documented in [SETUP.md](SETUP.md). After configuring the private `.env.local`, run:
+
+~~~powershell
+npm run preflight
+npm run build
+npm run start
+~~~
+
+Run the durable worker in a second terminal:
+
+~~~powershell
+npm run worker
+~~~
+
+Create the disposable failure only when the demo is ready:
+
+~~~powershell
+npm run demo:variant -- regression
+git add demo-target/lib/release.mjs
+git commit -m "Demo: introduce null-promo checkout regression"
+git push origin main
+~~~
+
+After the rehearsal, restore the healthy variant and disable both live switches:
+
+~~~powershell
+npm run demo:variant -- good
+git add demo-target/lib/release.mjs
+git commit -m "Demo: restore healthy checkout"
+git push origin main
+~~~
+
+Never commit `.env.local`. Tokens, signing secrets, provider identifiers, and temporary tunnel URLs remain private operator configuration.
+
+## Suggested recording outline
+
+A concise submission video can show the complete story in four minutes:
+
+- **Problem:** incident response is fragmented across deployment, chat, source control, and planning tools.
+- **Healthy baseline:** show the working checkout and pinned known-good deployment.
+- **Real failure:** deploy the regression and reproduce the checkout error.
+- **One-command response:** mention Sentinel in Slack and follow the durable timeline in the console.
+- **Controlled action:** show the evidence and deterministic gates that authorize exactly one rollback.
+- **Verified outcome:** show three healthy production checks plus the Slack, GitHub, and Linear receipts.
+- **Takeaway:** AI explains and recommends; deterministic policy authorizes; measured production behavior proves recovery.
 
 ## What happens
 
